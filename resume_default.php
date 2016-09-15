@@ -13,8 +13,8 @@ require __DIR__ . '/includes/resumes.php';
 <head>
   <meta charset="UTF-8">
   <title>Resume - FirstName LastName</title>
-  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- download your own css from http://prismjs.com/ -->
   <link rel="stylesheet" href="//prismjs.com/themes/prism.css">
 </head>
 <body>
