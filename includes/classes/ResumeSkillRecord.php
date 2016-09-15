@@ -8,13 +8,13 @@
  */
 class ResumeSkillRecord
 {
-  protected $attributes = [];
-  protected $contents;
+  protected $tab = '    ', $attributes = [];
+  protected $content;
 
   public function __construct(array $attributes, $contents = null)
   {
     $this->attributes = $attributes;
-    $this->contents = $contents;
+    $this->content = $contents;
   }
 
   /**
@@ -36,17 +36,17 @@ class ResumeSkillRecord
   /**
    * @return mixed
    */
-  public function getContents()
+  public function getContent()
   {
-    return $this->contents;
+    return $this->content;
   }
 
   /**
-   * @param mixed $contents
+   * @param mixed $content
    */
-  public function setContents($contents)
+  public function setContent($content)
   {
-    $this->contents = $contents;
+    $this->content = $content;
   }
 
   public function render($name)
@@ -56,18 +56,26 @@ class ResumeSkillRecord
     foreach ($this->attributes as $attribute => $desc) {
       $attributes_output .= ' <span class="token attr-name">'. $attribute . '</span><span class="token attr-value"><span class="token punctuation">="</span>' .$desc. '"</span>';
     }
-    if ($this->contents) {
-      $output .= sprintf('  <span class="token tag"><span class="token punctuation"><</span>%s%s<span class="token punctuation">></span></span>'.PHP_EOL.'    %s'.PHP_EOL.'  <span class="token tag"><span class="token punctuation">&lt;/</span>%s<span class="token punctuation">></span></span>'.PHP_EOL
+    if ($this->content) {
+      $output .= sprintf($this->tab.'<span class="token tag"><span class="token punctuation"><</span>%s%s<span class="token punctuation">></span></span>'.PHP_EOL.$this->tab.$this->tab.'%s'.$this->tab.'<span class="token tag"><span class="token punctuation">&lt;/</span>%s<span class="token punctuation">></span></span>'.PHP_EOL
         , $name
         , $attributes_output
-        , preg_replace('/[\n\r]+/', PHP_EOL.'    ', $this->contents)
+        , preg_replace('/[\n\r]+/', PHP_EOL.$this->tab.$this->tab, $this->content).PHP_EOL
         , $name
       );
     } else {
-      $output .= sprintf('  <span class="token tag"><span class="token punctuation"><</span>%s%s<span class="token punctuation">/></span></span>'.PHP_EOL, $name, $attributes_output);
+      $output .= sprintf($this->tab.'<span class="token tag"><span class="token punctuation"><</span>%s%s<span class="token punctuation">/></span></span>'.PHP_EOL, $name, $attributes_output);
     }
 
     return $output;
+  }
+
+  /**
+   * @param mixed $tab
+   */
+  public function setTab($tab)
+  {
+    $this->tab = $tab;
   }
 
 }

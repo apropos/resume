@@ -1,7 +1,12 @@
 <?php
 
-$contact = (new ResumeSkill('Contact', 1))
+$contact = (new ResumeSkill('Contact', 1, ['age' => '21']))
   ->withData(new ResumeSkillRecord(['name' => 'FirstName LastName', 'email' => 'email@example.com', 'phone' => '888.555.1212', 'location' => 'Los Angeles, CA 90007, USA']));
+$contact->setContent(<<<'TAG'
+<span class="token punctuation">&lt;!-- comments --&gt;</span>
+Additional Information
+TAG
+);
 $resumes[] = new Resume([$contact]);
 
 $language = (new ResumeSkill('Language', 1))
