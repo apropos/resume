@@ -8,7 +8,7 @@
  */
 class ResumeSkill
 {
-  protected $name, $content, $column, $tab = '    ';
+  protected $name, $content, $column, $tab = '   ';
   protected $attributes = [];
   /** @var ResumeSkillRecord[]  */
   protected $data = [];

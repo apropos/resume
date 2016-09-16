@@ -39,7 +39,7 @@ class Resume
       $cols[$skill->getColumn()] .= '<pre class="language-html"><code class="language-html">'.$skill->render().'</code></pre>';
     }
     foreach ($cols as $column) {
-      $output .= sprintf('<div class="col-md-%d">%s</div>' . PHP_EOL, $col, $column);
+      $output .= sprintf('<div style="page-break-inside:avoid;" class="col-md-%d">%s</div>' . PHP_EOL, $col, $column);
     }
 
     return '<div class="row">' . $output . '</div>';

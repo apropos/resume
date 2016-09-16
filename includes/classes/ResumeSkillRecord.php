@@ -8,7 +8,7 @@
  */
 class ResumeSkillRecord
 {
-  protected $tab = '    ', $attributes = [];
+  protected $tab = '   ', $attributes = [];
   protected $content;
 
   public function __construct(array $attributes, $contents = null)
