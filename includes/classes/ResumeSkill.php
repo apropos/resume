@@ -8,7 +8,7 @@
  */
 class ResumeSkill
 {
-  protected $name, $content, $column, $tab = '   ';
+  protected $name, $content, $column, $tab = '<span class="tab">   </span>';
   protected $attributes = [];
   /** @var ResumeSkillRecord[]  */
   protected $data = [];
@@ -43,9 +43,9 @@ class ResumeSkill
   public function render() {
     $attributes = '';
     foreach ($this->attributes as $attr => $val) {
-      $attributes .= ' <span class="token attr-name">' .$attr. '</span><span class="token punctuation">="</span>' .$val. '<span class="token punctuation">"</span>';
+      $attributes .= '<span class="token attr-name">' .$attr. '</span><span class="token punctuation">="</span>' .$val. '<span class="token punctuation">"</span> ';
     }
-    $output = '<span class="token tag"><span class="token punctuation"><</span>' . $this->name . $attributes . '<span class="token punctuation">></span></span>'.PHP_EOL;
+    $output = '<span class="token tag"><span class="token punctuation"><</span>' . $this->name . ' ' . $attributes . '<span class="token punctuation">></span></span>'.PHP_EOL;
     foreach ($this->data as $element => $record) {
       $element_name = is_numeric($element) ? $this->element : $element;
       $output .= $record->render($element_name);
@@ -53,7 +53,7 @@ class ResumeSkill
     if ($this->content) {
       $output .= $this->tab.preg_replace('/[\n\r]+/', PHP_EOL.$this->tab, $this->content).PHP_EOL;
     }
-    $output .= '<span class="token tag"><span class="token punctuation">&lt;/</span>' . $this->name . '<span class="token punctuation">></span></span>';
+    $output .= '<span class="token tag tag-end"><span class="token punctuation">&lt;/</span>' . $this->name . '<span class="token punctuation">></span></span>';
 
     return $output;
   }
