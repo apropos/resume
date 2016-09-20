@@ -54,17 +54,25 @@ class ResumeSkillRecord
     $output = '';
     $attributes_output = '';
     foreach ($this->attributes as $attribute => $desc) {
-      $attributes_output .= '<span class="token attr-name">'. $attribute . '</span><span class="token attr-value"><span class="token punctuation">="</span>' .$desc. '<span class="token punctuation">"</span></span> ';
+      $attributes_output .= '<span style="white-space:pre"><span class="token attr-name">'. $attribute . '</span><span class="token attr-value"><span class="token punctuation">="</span>' .$desc. '<span class="token punctuation">"</span></span></span> ';
     }
     if ($this->content) {
-      $output .= sprintf($this->tab.'<span class="token tag"><span class="token punctuation"><</span><span class="tag-record">%s </span>%s<span class="token punctuation">></span></span>%s'.$this->tab.'<span class="token tag tag-end"><span class="token punctuation">&lt;/</span><span class="tag-record">%s</span><span class="token punctuation">></span></span>'.PHP_EOL
+      $content_parts = preg_split('/[\n\r]+/', $this->content);
+      $content = '';
+      foreach ($content_parts as $part) {
+      	$content .= PHP_EOL.'<span class="attr-name">'.$this->tab.$this->tab.'</span><span class="pre-wrap">'.$part.'</span>';
+      }
+      $output .= sprintf($this->tab.'<span class="token tag" style="display:inline-block"><span class="token punctuation"><</span><span class="tag-record">%s </span>%s<span class="token punctuation">></span></span>%s'.$this->tab.'<span class="token tag tag-end"><span class="token punctuation">&lt;/</span><span class="tag-record">%s</span><span class="token punctuation">></span></span>'.PHP_EOL
         , $name
-        , $attributes_output
-        , preg_replace('/[\n\r]+/', PHP_EOL.'<span class="attr-name">'.$this->tab.$this->tab.'</span>', PHP_EOL.$this->content).PHP_EOL
+        , '<span style="white-space:normal">'.rtrim($attributes_output).'</span>'
+        , $content.PHP_EOL
         , $name
       );
     } else {
-      $output .= sprintf($this->tab.'<span class="token tag"><span class="token punctuation"><</span><span class="tag-record">%s </span>%s<span class="token punctuation">/></span></span>'.PHP_EOL, $name, $attributes_output);
+      $output .= sprintf($this->tab.'<span class="token tag" style="display:inline-block"><span class="token punctuation"><</span><span class="tag-record">%s </span>%s<span class="token punctuation">/></span></span>'.PHP_EOL
+        , $name
+	, '<span style="white-space:normal">'.rtrim($attributes_output).'</span>'
+      );
     }
 
     return $output;

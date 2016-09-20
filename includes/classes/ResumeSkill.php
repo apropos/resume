@@ -45,13 +45,16 @@ class ResumeSkill
     foreach ($this->attributes as $attr => $val) {
       $attributes .= '<span class="token attr-name">' .$attr. '</span><span class="token punctuation">="</span>' .$val. '<span class="token punctuation">"</span> ';
     }
-    $output = '<span class="token tag"><span class="token punctuation"><</span>' . $this->name . ' ' . $attributes . '<span class="token punctuation">></span></span>'.PHP_EOL;
+    $output = '<span class="token tag" style="display:inline-block"><span class="token punctuation"><</span>' . rtrim($this->name . ' ' . $attributes) . '<span class="token punctuation">></span></span>'.PHP_EOL;
     foreach ($this->data as $element => $record) {
       $element_name = is_numeric($element) ? $this->element : $element;
       $output .= $record->render($element_name);
     }
     if ($this->content) {
-      $output .= $this->tab.preg_replace('/[\n\r]+/', PHP_EOL.$this->tab, $this->content).PHP_EOL;
+      $content_parts = preg_split('/[\n\r]+/', $this->content);
+      foreach ($content_parts as $part) {
+        $output .= '<span class="attr-name">'.$this->tab.'</span><span class="pre-wrap">'.$part.'</span>'.PHP_EOL;
+      }
     }
     $output .= '<span class="token tag tag-end"><span class="token punctuation">&lt;/</span>' . $this->name . '<span class="token punctuation">></span></span>';
 
